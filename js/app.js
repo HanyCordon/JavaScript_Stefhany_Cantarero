@@ -50,6 +50,11 @@ function ingresarNumero(elemento) {
     else if (elemento.id=="mas") {
       this.sumar();
     }
+    else if (elemento.id=="punto") {
+      if(!pantalla.innerHTML.includes(".")){
+        pantalla.innerHTML += ".";
+      }
+    }
   }
   else
   {
@@ -58,15 +63,13 @@ function ingresarNumero(elemento) {
     }
     else
     {
-      pantalla.innerHTML += String(numero);
+      if (pantalla.innerHTML.length<=10){
+        pantalla.innerHTML += String(numero);
+        if (pantalla.innerHTML.length>7) {
+          pantalla.style.fontSize = "4vw";
+        }
+      }
     }
-    if (pantalla.innerHTML.length>7 && pantalla.innerHTML.length<=10) {
-      pantalla.style.fontSize = "4vw";
-    }
-    else if (pantalla.innerHTML.length>10) {
-      pantalla.innerHTML = pantalla.innerHTML;
-    }
-
   }
 
 }
