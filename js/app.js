@@ -41,6 +41,7 @@ function sumar() {
 
 function ingresarNumero(elemento) {
   var numero = parseInt(elemento.id);
+  var pantalla =document.getElementById('display');
   if (isNaN(numero))
   {
     if (elemento.id=="on") {
@@ -52,20 +53,36 @@ function ingresarNumero(elemento) {
   }
   else
   {
-    if (document.getElementById('display').value=="0") {
-      document.getElementById('display').innerHTML = String(numero);
+    if (pantalla.innerHTML=="0") {
+      pantalla.innerHTML = String(numero);
     }
-    else{
-      document.getElementById('display').innerHTML += String(numero);
+    else
+    {
+      pantalla.innerHTML += String(numero);
+    }
+    if (pantalla.innerHTML.length>7 && pantalla.innerHTML.length<=10) {
+      pantalla.style.fontSize = "4vw";
+    }
+    else if (pantalla.innerHTML.length>10) {
+      pantalla.innerHTML = pantalla.innerHTML;
     }
 
   }
 
 }
 
-var calculadora = {
+var calculadora =
+{
   init : function(){
     this.asiganarEventos();
+  },
+  asiganarEventos : function()
+  {
+    var items = document.getElementsByClassName("tecla");
+    for (var i = 0; i < items.length; i++) {
+      items[i].onmousedown = this.eventoDisminuirTamano;
+      items[i].onmouseup = this.eventoAumentarTamano;
+      items[i].onclick = this.eventoIngresarNumero;}
   },
   eventoAumentarTamano : function(event)
   {
@@ -78,17 +95,7 @@ var calculadora = {
   eventoIngresarNumero : function(event)
   {
     ingresarNumero(event.target);
-  },
-  asiganarEventos : function(){
-    var items = document.querySelectorAll("[class^='tecla']");
-    for (var i = 0; i < items.length; i++) {
-      items[i].onclick = this.eventoIngresarNumero;
-      items[i].onmousedown = this.eventoDisminuirTamano;
-      items[i].onmouseup = this.eventoAumentarTamano;
-    }
   }
-
-
 }
 
 calculadora.init();
